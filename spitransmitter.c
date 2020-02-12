@@ -7,9 +7,10 @@
 
 #include "Spi.h"
 #include "softwareDelay.h"
-int main (void)
+void SPI_sender_test (void)
 {
-	ST_S_SPI_Configuration spistr1={
+	ST_S_SPI_Configuration spistr1=
+	{
 		 spistr1.SLAVE_MODE=SPI_MASTER,
 		 spistr1.INT_ENABLE=SPI_INT_OFF,
 		 spistr1.PRESCALAR=SPI_Fosc16,
@@ -18,22 +19,16 @@ int main (void)
 		 spistr1.SAMPLING_EDGE=SPI_RISING,
 		 spistr1.DATA_ORDER=SPI_LSB_FISRT,
 		 spistr1.clock_phase=leading_EDGE
-		 };
+	 };
 	SPI_Init(&spistr1);
 
 
 	softwareDelayMs(2000);
-	while(1){
+	while(1)
+	{
 		
-			SPI_Transceiver(20);
-			softwareDelayMs(1000);
-		
-			
-		
-	
-	
-		
-		
+		SPI_Transceiver(20);
+		softwareDelayMs(1000);
 	}
 	
 

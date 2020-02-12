@@ -2,7 +2,7 @@
 #include "Spi.h"
 #include "softwareDelay.h"
 #include "sevenSeg.h"
-int main (void)
+void SPI_receiver_func (void)
 {
 	ST_S_SPI_Configuration spistr1={
 		 spistr1.SLAVE_MODE=SPI_SLAVE,
@@ -18,39 +18,38 @@ int main (void)
 	sevenSegInit(SEG_0);
 	sevenSegInit(SEG_1);
 
-uint8_t data=0;
-	//softwareDelayMs(2000);
-	while(1){
-	/*	
-			SPI_Transceiver(20);
+	uint8_t data=0;
+
+	while(1)
+	{
+
+		if(SPI_Transceiver(25)==20)
+		{
+			sevenSegWrite(SEG_0,data);
+			sevenSegEnable(SEG_0);
+			sevenSegDisable(SEG_1);
+			data++;
 			softwareDelayMs(1000);
-		*/
-			
-		
-		
-	if(SPI_Transceiver(25)==20){
-	sevenSegWrite(SEG_0,data);
-	sevenSegEnable(SEG_0);
-	sevenSegDisable(SEG_1);
-	data++;
-	softwareDelayMs(1000);
-	
-	if(data==9){
-		data=0;
-	}
-	}	
-	else{
+
+			if(data==9)
+			{
+				data=0;
+			}
+		}
+		else
+		{
 			sevenSegWrite(SEG_1,data);
 			sevenSegEnable(SEG_1);
 			sevenSegDisable(SEG_0);
 			data++;
 			softwareDelayMs(1000);
-			
-			if(data==9){
+
+			if(data==9)
+			{
 				data=0;
 			}
-	}
-	
+		}
+
 		
 		
 	}

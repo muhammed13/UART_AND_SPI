@@ -12,9 +12,11 @@ C_SRCS += \
 ../GPIO_REQ8.c \
 ../GPIO_REQ9.c \
 ../ISRs.c \
-../M1.c \
+../Spi.c \
 ../SwICU.c \
 ../UART.c \
+../UART_Receiver.c \
+../UART_Sender.c \
 ../US.c \
 ../dcMotor.c \
 ../gpio.c \
@@ -24,6 +26,8 @@ C_SRCS += \
 ../pushButton.c \
 ../sevenSeg.c \
 ../softwareDelay.c \
+../spirecivier.c \
+../spitransmitter.c \
 ../timers.c 
 
 OBJS += \
@@ -35,9 +39,11 @@ OBJS += \
 ./GPIO_REQ8.o \
 ./GPIO_REQ9.o \
 ./ISRs.o \
-./M1.o \
+./Spi.o \
 ./SwICU.o \
 ./UART.o \
+./UART_Receiver.o \
+./UART_Sender.o \
 ./US.o \
 ./dcMotor.o \
 ./gpio.o \
@@ -47,6 +53,8 @@ OBJS += \
 ./pushButton.o \
 ./sevenSeg.o \
 ./softwareDelay.o \
+./spirecivier.o \
+./spitransmitter.o \
 ./timers.o 
 
 C_DEPS += \
@@ -58,9 +66,11 @@ C_DEPS += \
 ./GPIO_REQ8.d \
 ./GPIO_REQ9.d \
 ./ISRs.d \
-./M1.d \
+./Spi.d \
 ./SwICU.d \
 ./UART.d \
+./UART_Receiver.d \
+./UART_Sender.d \
 ./US.d \
 ./dcMotor.d \
 ./gpio.d \
@@ -70,6 +80,8 @@ C_DEPS += \
 ./pushButton.d \
 ./sevenSeg.d \
 ./softwareDelay.d \
+./spirecivier.d \
+./spitransmitter.d \
 ./timers.d 
 
 

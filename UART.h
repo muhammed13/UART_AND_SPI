@@ -192,9 +192,16 @@ void UART_sendByte(const uint8_t data);
 uint8_t UART_recieveByte(void);
 void UART_sendString(const uint8_t *Str);
 void UART_receiveString(uint8_t *Str);
+void UART_set_UDR(void);
 /****************************************************************************/
 
 
+
+/****************************Global variables****************************/
+extern volatile uint8_t g8_udr_data;
+extern volatile void (*g_UART_sender_CallBackPtr)(void);
+volatile void (*g_UART_receiver_CallBackPtr)(void);
+/****************************************************************************/
 #endif /* UART_H_ */
 
 

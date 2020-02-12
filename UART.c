@@ -6,20 +6,33 @@
  ============================================================================
  */
 
-
+/********************************includes***************************************/
 #include "UART.h"
 #include "UARTConfig.h"
+/*******************************************************************************/
 
+/********************************definitions********************************/
 //#define BAUD_PRESCALE (((F_CPU / (USART_BAUDRATE * 8UL))) - 1)
-//#define NULL_PTR ((void*)0)
+#define NULL_PTR ((void*)0)
+/********************************************************************************/
+
+/********************************global variables********************************/
+volatile uint8_t g8_udr_data=0;
+
+/* Global variables to hold the address of the call back function in the application */
+volatile void (*g_UART_sender_CallBackPtr)(void) = NULL_PTR;
+volatile void (*g_UART_receiver_CallBackPtr)(void) = NULL_PTR;
+/********************************************************************************/
+
+
 //static UART_Config_Structure * UART_Init_Structure = NULL_PTR;
 
-/*******************************************************************************
- *                      Functions Definitions                                  *
- *******************************************************************************/
+
+/********************************Functions Definitions***********************************/
 void UART_init(const UART_Config_Structure * UART_Init_Structure)
 {
 	uint8_t UCSRC_Value;
+	uint8_t UBRRH_Value;
 	/****************************UCSRA Description************************
 	 * U2X => double transmission speed
 	 * MPCM =>Multi processor communication
@@ -58,8 +71,9 @@ void UART_init(const UART_Config_Structure * UART_Init_Structure)
 
 	UCSRC = UCSRC_Value;
 	/* First 8 bits from the BAUD_PRESCALE inside UBRRL and last 4 bits in UBRRH*/
-	//UCSRC = 0X06;
-	UBRRH = UART_Init_Structure->Double_Speed_Baud_Rate>>8;
+	//UBRRH_Value = (0X0F) & (UART_Init_Structure->Double_Speed_Baud_Rate>>8);
+	//UBRRH = UBRRH_Value;
+	UBRRH = (UART_Init_Structure->Double_Speed_Baud_Rate>>8);
 	UBRRL = UART_Init_Structure->Double_Speed_Baud_Rate;
 
 }
@@ -117,4 +131,11 @@ void UART_receiveString(uint8_t *Str)
 		Str[i] = UART_recieveByte();
 	}
 	Str[i] = '\0';
+}
+/****************************************************************************************/
+
+/***************************UART interrupt functions*************************************/
+void UART_set_UDR(void)
+{
+	UDR = g8_udr_data;
 }

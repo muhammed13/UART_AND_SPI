@@ -10,6 +10,8 @@
 #include "AGILE_REQ2.h"
 #include "AGILE_REQ3.h"
 #include "UART.h"
+#include "UART_Sender.h"
+#include "UART_Receiver.h"
 
 #define NULL_PTR ((void*)0)
 int main(void)
@@ -175,7 +177,7 @@ int main(void)
 
 
 	/*************receiver************************/
-
+/*
 	gpioPortDirection(GPIOB,OUTPUT);
 	gpioPortWrite(GPIOB,LOW);
 	uint8_t num=0;
@@ -200,11 +202,12 @@ int main(void)
 		softwareDelayMs(500);
 
 	}
-
+*/
 
 
 	/**************sender*****************************/
-/*
+
+	/*
 	uint8_t num=0;
 	UART_Config_Structure uart_initialization_structure;
 
@@ -230,9 +233,10 @@ int main(void)
 		}
 		softwareDelayMs(500);
 	}
-
 */
 
+	//UART_Sender_func();
+	//UART_Receiver_func();
 
 	return 0;
 

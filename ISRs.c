@@ -7,8 +7,12 @@
  */
 #include "ISRs.h"
 
+#define NULL_PTR ((void*)0)
+
+
 volatile uint8_t g8_gloabal_int0_flag=0;
 volatile uint8_t u8_local_int0_flag=0;
+
 /****************************this ISRs for testing************************/
 /*
 ISR(INT0_vect)
@@ -83,8 +87,8 @@ ISR(TIMER0_COMP_vect)
 
 /*******************************these ISRs for Ultrasonic sensor*******************************************/
 
-ISR(INT0_vect)
-{
+//ISR(INT0_vect)
+//{
 	//gpioPinDirection(GPIOB, BIT3, OUTPUT); //useless
 	//gpioPinWrite(GPIOB, BIT3,BIT3);
 /*
@@ -131,6 +135,8 @@ ISR(INT0_vect)
 	    counter=0;
 	}
 	*/
+
+	/*
 	g8_gloabal_int0_flag=1;
 	uint8_t x;
 	x=TCNT0;
@@ -147,9 +153,26 @@ ISR(INT0_vect)
 	TCNT2=distance;
 	gpioPortDirection(GPIOB,OUTPUT);
 	gpioPortWrite(GPIOB,distance);
-
-
-}
+*/
+//}
 
 /*****************************************************************************/
 
+/*******************************these ISRs for UART*******************************************/
+ISR(USART_RXC_vect)
+{
+	if(g_UART_sender_CallBackPtr != NULL_PTR)
+	{
+		/* Call the Call Back function in the application after the edge is detected */
+		(*g_UART_sender_CallBackPtr)(); /* another method to call the function using pointer to function g_callBackPtr(); */
+	}
+}
+
+ISR(USART_TXC_vect)
+{
+	if(g_UART_receiver_CallBackPtr != NULL_PTR)
+	{
+		/* Call the Call Back function in the application after the edge is detected */
+		(*g_UART_receiver_CallBackPtr)(); /* another method to call the function using pointer to function g_callBackPtr(); */
+	}
+}

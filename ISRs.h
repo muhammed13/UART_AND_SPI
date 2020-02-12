@@ -13,7 +13,7 @@
 #include "led.h"
 #include "US.h"
 #include "AGILE_REQ2.h"
-
+#include "UART.h"
 /***************************global variables************************/
 extern uint8_t g8_state;
 extern uint8_t g8_gloabal_car_duty;
