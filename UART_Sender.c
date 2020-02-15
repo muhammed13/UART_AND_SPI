@@ -69,8 +69,10 @@ void UART_Sender_with_interrupt_func(void)
 	}
 }
 
+
 void UART_setCallBack(void(*a_ptr)(void))
 {
-	/* Save the address of the Call back function in a global variable */
+	// Save the address of the Call back function in a global variable
 	g_UART_sender_CallBackPtr = a_ptr;
 }
+

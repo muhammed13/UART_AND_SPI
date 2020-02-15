@@ -12,6 +12,9 @@
 #include "UART.h"
 #include "UART_Sender.h"
 #include "UART_Receiver.h"
+#include "UART_SPI_ApplicationMicro1.h"
+#include "UART_SPI_ApplicationMicro2.h"
+#include "SPI_Driver.h"
 
 #define NULL_PTR ((void*)0)
 int main(void)
@@ -235,8 +238,21 @@ int main(void)
 	}
 */
 
+	/*UART test*/
 	//UART_Sender_func();
 	//UART_Receiver_func();
+
+
+	/*SPI test*/
+    //SPI_receiver_func();
+	//SPI_sender_test();
+
+
+	/*UART_SPI_APP_MICRO1*/
+	//Micro_OneApplication();
+
+	Micro_TwoApplication();
+
 
 	return 0;
 

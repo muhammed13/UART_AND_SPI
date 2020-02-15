@@ -22,8 +22,8 @@
 /********************************functions********************************/
 void US_init(void)
 {
-	gpioPinDirection(GPIOA, BIT0,OUTPUT);
-	gpioPinWrite(GPIOA, BIT0,BIT0); /*enable pull-up resistor*/
+	gpioPinDirection(GPIOA, US_TRIGGER_BIT,OUTPUT);
+	gpioPinWrite(GPIOA, US_TRIGGER_BIT,US_TRIGGER_BIT); /*enable pull-up resistor*/
 	SwICU_Init(SwICU_EdgeRisiging);
 }
 

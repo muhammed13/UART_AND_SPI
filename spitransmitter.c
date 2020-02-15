@@ -5,31 +5,24 @@
  *  Author: hazem
  */ 
 
-#include "Spi.h"
+#include "SPI_Driver.h"
 #include "softwareDelay.h"
-void SPI_sender_test (void)
+
+void SPI_sender_test(void)
 {
-	ST_S_SPI_Configuration spistr1=
-	{
-		 spistr1.SLAVE_MODE=SPI_MASTER,
-		 spistr1.INT_ENABLE=SPI_INT_OFF,
-		 spistr1.PRESCALAR=SPI_Fosc16,
-		 spistr1.DOUBLE_SPEED=SPI_DOUBLE_SPEED_MODE_OFF,
-		 spistr1.ENABLE=SPI_ENABLE_ON,
-		 spistr1.SAMPLING_EDGE=SPI_RISING,
-		 spistr1.DATA_ORDER=SPI_LSB_FISRT,
-		 spistr1.clock_phase=leading_EDGE
-	 };
-	SPI_Init(&spistr1);
-
-
-	softwareDelayMs(2000);
-	while(1)
-	{
-		
-		SPI_Transceiver(20);
-		softwareDelayMs(1000);
-	}
-	
+	SPI_initMaster();
+	gpioPinDirection(GPIOC,BIT4,INPUT);
+    while(1)
+    {
+		if(gpioPinRead(GPIOC,BIT4)) //if switch is pressed
+		{
+			SPI_sendByte(1);
+		}
+		else
+		{
+			SPI_sendByte(0);
+		}
+    }
 
 }
+

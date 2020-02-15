@@ -1,29 +1,43 @@
 
-#include "Spi.h"
+#include "SPI_Driver.h"
 #include "softwareDelay.h"
 #include "sevenSeg.h"
-void SPI_receiver_func (void)
+
+void SPI_receiver_func(void)
 {
-	ST_S_SPI_Configuration spistr1={
-		 spistr1.SLAVE_MODE=SPI_SLAVE,
-		 spistr1.INT_ENABLE=SPI_INT_OFF,
-		 spistr1.PRESCALAR=SPI_Fosc16,
-		 spistr1.DOUBLE_SPEED=SPI_DOUBLE_SPEED_MODE_OFF,
-		 spistr1.ENABLE=SPI_ENABLE_ON,
-		 spistr1.SAMPLING_EDGE=SPI_RISING,
-		 spistr1.DATA_ORDER=SPI_LSB_FISRT,
-		 spistr1.clock_phase=leading_EDGE
-		 };
-	SPI_Init(&spistr1);
+	uint8_t data_received;
+	SPI_initSlave();
+	gpioPinDirection(GPIOB,BIT3,OUTPUT);
+    while(1)
+    {
+		data_received = SPI_recieveByte(); //receive data from the master Micro-controller
+		if(data_received == 1)
+		{
+			gpioPinWrite(GPIOB,BIT3,HIGH);
+		}
+		else if(data_received == 0)
+		{
+			gpioPinWrite(GPIOB,BIT3,LOW);
+		}
+    }
+}
+
+/*#include "SPI_Driver.h"
+#include "softwareDelay.h"
+#include "sevenSeg.h"
+
+void SPI_receiver_func(void)
+{
+	SPI_initSlave();
 	sevenSegInit(SEG_0);
 	sevenSegInit(SEG_1);
-
+	gpioPinDirection(GPIOB,BIT3,OUTPUT);
 	uint8_t data=0;
 
 	while(1)
 	{
 
-		if(SPI_Transceiver(25)==20)
+		if(SPI_recieveByte()==20)
 		{
 			sevenSegWrite(SEG_0,data);
 			sevenSegEnable(SEG_0);
@@ -35,19 +49,11 @@ void SPI_receiver_func (void)
 			{
 				data=0;
 			}
+			gpioPinWrite(GPIOB,BIT3,LOW);
 		}
 		else
 		{
-			sevenSegWrite(SEG_1,data);
-			sevenSegEnable(SEG_1);
-			sevenSegDisable(SEG_0);
-			data++;
-			softwareDelayMs(1000);
-
-			if(data==9)
-			{
-				data=0;
-			}
+			gpioPinWrite(GPIOB,BIT3,BIT3);
 		}
 
 		
@@ -56,3 +62,4 @@ void SPI_receiver_func (void)
 	
 
 }
+*/

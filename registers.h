@@ -112,6 +112,12 @@
 #define UBRRH *((reg_type8_t)(0X40))
 #define UDR *((reg_type8_t)(0X2C))
 
+/************************************************************
+ * SPI registers
+ ***********************************************************/
+#define  SPCR  *((reg_type8_t)0x2D)
+#define  SPSR  *((reg_type8_t)0x2E)
+#define  SPDR  *((reg_type8_t)0x2F)
 
 #endif /* REGISTERS_H_ */
 

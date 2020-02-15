@@ -12,6 +12,7 @@
 
 volatile uint8_t g8_gloabal_int0_flag=0;
 volatile uint8_t u8_local_int0_flag=0;
+volatile uint32_t timer0_compare_match_tickes=0;
 
 /****************************this ISRs for testing************************/
 /*
@@ -58,7 +59,7 @@ ISR(TIMER0_COMP_vect)
 	u8_local_int0_flag=0;
 }
 
-ISR(INT0_vect)
+ISR(INT2_vect)
 {
 	g8_gloabal_int0_flag=1;
 	u8_local_int0_flag=1;
@@ -158,13 +159,14 @@ ISR(TIMER0_COMP_vect)
 
 /*****************************************************************************/
 
-/*******************************these ISRs for UART*******************************************/
+/*******************************these ISRs for UART****************************************/
+/*
 ISR(USART_RXC_vect)
 {
 	if(g_UART_sender_CallBackPtr != NULL_PTR)
 	{
-		/* Call the Call Back function in the application after the edge is detected */
-		(*g_UART_sender_CallBackPtr)(); /* another method to call the function using pointer to function g_callBackPtr(); */
+		// Call the Call Back function in the application after the edge is detected
+		(*g_UART_sender_CallBackPtr)(); // another method to call the function using pointer to function g_callBackPtr();
 	}
 }
 
@@ -172,7 +174,19 @@ ISR(USART_TXC_vect)
 {
 	if(g_UART_receiver_CallBackPtr != NULL_PTR)
 	{
-		/* Call the Call Back function in the application after the edge is detected */
-		(*g_UART_receiver_CallBackPtr)(); /* another method to call the function using pointer to function g_callBackPtr(); */
+		//Call the Call Back function in the application after the edge is detected
+		(*g_UART_receiver_CallBackPtr)(); // another method to call the function using pointer to function g_callBackPtr();
 	}
 }
+*/
+
+
+/**************************these ISRs for UART & SPI Challenge****************************/
+
+
+ISR(TIMER0_COMP_vect)
+{
+	timer0_compare_match_tickes++;
+	TCNT0=0;
+}
+
